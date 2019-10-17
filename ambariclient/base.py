@@ -590,9 +590,11 @@ class QueryableModel(Model):
         Otherwise, it will generated it based on the collection's url and the
         model's identifier.
         """
-        if self._href is not None:
-            return self._href
+        # if self._href is not None:
+        #     return self._href
         if self.identifier:
+            if self.identifier == 'Unknown':
+                return self.parent.url
             return '/'.join([self.parent.url, self.identifier])
         raise exceptions.ClientError("Not able to determine object URL")
 
